@@ -1,0 +1,49 @@
+[plugin:vite:esbuild] Transform failed with 4 errors:
+/home/runner/workspace/client/src/pages/ResearchLogs.tsx:29:16: ERROR: The character ">" is not valid inside a JSX element
+/home/runner/workspace/client/src/pages/ResearchLogs.tsx:30:16: ERROR: The character ">" is not valid inside a JSX element
+/home/runner/workspace/client/src/pages/ResearchLogs.tsx:31:16: ERROR: The character ">" is not valid inside a JSX element
+/home/runner/workspace/client/src/pages/ResearchLogs.tsx:32:16: ERROR: The character ">" is not valid inside a JSX element
+/home/runner/workspace/client/src/pages/ResearchLogs.tsx:29:0
+The character ">" is not valid inside a JSX element
+27 |                </p>
+28 |                <div data-replit-metadata="client/src/pages/ResearchLogs.tsx:28:14" data-component-name="div" className...
+29 |                  > Epoch 50/50<br data-replit-metadata="client/src/pages/ResearchLogs.tsx:29:29" data-component-name="...
+   |                  ^
+30 |                  > Loss: 0.0421<br data-replit-metadata="client/src/pages/ResearchLogs.tsx:30:30" data-component-name=...
+31 |                  > Validation Accuracy: 92.4%<br data-replit-metadata="client/src/pages/ResearchLogs.tsx:31:44" data-c...
+
+The character ">" is not valid inside a JSX element
+28 |                <div data-replit-metadata="client/src/pages/ResearchLogs.tsx:28:14" data-component-name="div" className...
+29 |                  > Epoch 50/50<br data-replit-metadata="client/src/pages/ResearchLogs.tsx:29:29" data-component-name="...
+30 |                  > Loss: 0.0421<br data-replit-metadata="client/src/pages/ResearchLogs.tsx:30:30" data-component-name=...
+   |                  ^
+31 |                  > Validation Accuracy: 92.4%<br data-replit-metadata="client/src/pages/ResearchLogs.tsx:31:44" data-c...
+32 |                  > Inference Time: 12ms (Jetson Nano)
+
+The character ">" is not valid inside a JSX element
+29 |                  > Epoch 50/50<br data-replit-metadata="client/src/pages/ResearchLogs.tsx:29:29" data-component-name="...
+30 |                  > Loss: 0.0421<br data-replit-metadata="client/src/pages/ResearchLogs.tsx:30:30" data-component-name=...
+31 |                  > Validation Accuracy: 92.4%<br data-replit-metadata="client/src/pages/ResearchLogs.tsx:31:44" data-c...
+   |                  ^
+32 |                  > Inference Time: 12ms (Jetson Nano)
+33 |                </div>
+
+The character ">" is not valid inside a JSX element
+30 |                  > Loss: 0.0421<br data-replit-metadata="client/src/pages/ResearchLogs.tsx:30:30" data-component-name=...
+31 |                  > Validation Accuracy: 92.4%<br data-replit-metadata="client/src/pages/ResearchLogs.tsx:31:44" data-c...
+32 |                  > Inference Time: 12ms (Jetson Nano)
+   |                  ^
+33 |                </div>
+34 |                <p data-replit-metadata="client/src/pages/ResearchLogs.tsx:34:14" data-component-name="p" className="fo...
+    at failureErrorWithLog (/home/runner/workspace/node_modules/vite/node_modules/esbuild/lib/main.js:1467:15)
+    at /home/runner/workspace/node_modules/vite/node_modules/esbuild/lib/main.js:736:50
+    at responseCallbacks.<computed> (/home/runner/workspace/node_modules/vite/node_modules/esbuild/lib/main.js:603:9)
+    at handleIncomingPacket (/home/runner/workspace/node_modules/vite/node_modules/esbuild/lib/main.js:658:12)
+    at Socket.readFromStdout (/home/runner/workspace/node_modules/vite/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:524:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:191:23)
+Click outside, press Esc key, or fix the code to dismiss.
+You can also disable this overlay by setting server.hmr.overlay to false in vite.config.ts.
