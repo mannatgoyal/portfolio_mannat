@@ -26,10 +26,10 @@ export default function ResearchLogs() {
                 <strong className="bg-yellow-200 px-1">Hypothesis:</strong> Can we use a lightweight CNN to predict steering angles based on monocular vision in track conditions?
               </p>
               <div className="bg-gray-100 p-4 border-l-4 border-blue-500 font-mono text-sm">
-                > Epoch 50/50<br/>
-                > Loss: 0.0421<br/>
-                > Validation Accuracy: 92.4%<br/>
-                > Inference Time: 12ms (Jetson Nano)
+                &gt; Epoch 50/50<br/>
+                &gt; Loss: 0.0421<br/>
+                &gt; Validation Accuracy: 92.4%<br/>
+                &gt; Inference Time: 12ms (Jetson Nano)
               </div>
               <p className="font-hand text-xl text-gray-700 pt-4">
                 Notes: The model struggles with harsh shadows. Need to augment dataset with more lighting variations.
