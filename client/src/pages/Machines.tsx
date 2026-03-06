@@ -29,7 +29,7 @@ export default function Machines() {
             <div className="tape"></div>
             <div className="bg-white border-2 border-black h-48 mb-6 flex items-center justify-center overflow-hidden photo-frame">
               <img
-                src="/tuff_17.png"
+                src={`${import.meta.env.BASE_URL}tuff_17.png`}
                 alt="TUFF 17 Racecar"
                 className="w-full h-full object-cover"
               />
@@ -72,7 +72,7 @@ export default function Machines() {
             <div className="tape"></div>
             <div className="bg-white border-2 border-black h-48 mb-6 flex items-center justify-center overflow-hidden photo-frame rotate-[-3deg]">
               <img
-                src="/tuff_18.png"
+                src={`${import.meta.env.BASE_URL}tuff_18.png`}
                 alt="TUFF 18 Details"
                 className="w-full h-full object-cover grayscale-0"
               />
