@@ -12,136 +12,320 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-border: var(--border);
 
-  --font-sans: 'Space Mono', monospace;
-  --font-hand: 'Architects Daughter', cursive;
-  --font-hand-alt: 'Caveat', cursive;
-  --font-pixel: 'VT323', monospace;
+  --font-sans: 'Caveat', cursive, sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --font-hud: 'Architects Daughter', cursive, sans-serif;
+  --font-code: 'VT323', monospace;
 }
 
 :root {
-  --background: #fdfbf7;
-  --foreground: #09090b;
-  --primary: #2563eb;
+  --background: #fdfaf2;       /* Notebook cream/yellowish paper */
+  --surface-deep: #f6f2e8;     /* Slightly darker shade for indented paper */
+  --surface-flush: #ffffff;    /* Clear white paper slips */
+  --surface-raised: #fffdf5;   /* Sticky notes / post-its */
+
+  --foreground: #0c0c0e;       /* Ink black */
+  --text-muted: #3a414e;       /* Soft pencil lead grey */
+  --text-faint: #787e8a;       /* Light draft pencil lines */
+
+  --border: #0c0c0e;           /* Hand-drawn ink stroke (black) */
+  --border-subtle: #2d2d30;    /* Muted ink lines */
+  --border-active: #ff4a4a;    /* Red pencil/marker lines */
+
+  --primary: #2563eb;          /* Ballpoint blue */
   --primary-foreground: #ffffff;
-  --secondary: #fef08a;
-  --secondary-foreground: #1a202c;
-  --border: #09090b;
+  --secondary: #d97706;
+  --secondary-foreground: #ffffff;
 }
 
+/* == BASE STYLES == */
 @layer base {
+  * {
+    border-color: var(--border);
+    box-sizing: border-box;
+  }
+
   body {
     background-color: var(--background);
     color: var(--foreground);
     font-family: var(--font-sans);
-    /* Y2K Grid Paper Background */
+    font-size: 17px;
+    letter-spacing: 0.01em;
+    overflow-x: hidden;
+    line-height: 1.6;
+
+    /* Diary notebook grid background */
     background-image: 
-      linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-    background-size: 24px 24px;
-    background-attachment: fixed;
+      /* Red left vertical margin line */
+      linear-gradient(to right, transparent 58px, #ff8e8e 58px, #ff8e8e 60px, transparent 60px),
+      /* Ruled blue horizontal lines spaced at 28px */
+      repeating-linear-gradient(to bottom, transparent, transparent 27px, rgba(194, 217, 255, 0.45) 27px, rgba(194, 217, 255, 0.45) 28px);
+    background-size: 100% 100%, 100% 28px;
+    background-attachment: local;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-hud);
+    font-weight: normal;
+    letter-spacing: -0.01em;
+    color: #0c0c0e;
+  }
+
+  /* Custom input styling for wobbly inputs */
+  input, textarea, select {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    background: #fff;
+    border: 2.5px solid #0c0c0e !important;
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px !important;
+    padding: 6px 12px;
+    outline: none;
   }
 }
 
+/* == DIARY & NOTEBOOK UTILITY CLASSES == */
 @layer utilities {
-  /* Messy Notebook Utilities */
-  .notebook-border {
-    border: 2px solid #000;
-    border-radius: 2px 255px 3px 25px / 255px 5px 225px 3px;
+  /* 2D Hand-drawn panel layout */
+  .notebook-panel {
+    background: var(--surface-flush);
+    border: 2.5px solid var(--border);
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+    box-shadow: 4px 5px 0px rgba(12, 12, 14, 0.95);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
 
+  /* Sunken/cutout paper area */
+  .notebook-inset {
+    background: var(--surface-deep);
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+  }
+
+  /* Post-it / Sticky notes */
   .sticky-note {
-    background: var(--secondary);
-    border: 1px solid rgba(0,0,0,0.2);
-    box-shadow: 4px 4px 0px rgba(0,0,0,0.8);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: var(--surface-raised);
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    box-shadow: 3px 4px 0px rgba(12, 12, 14, 0.95);
   }
 
-  .sticky-note:hover {
-    transform: translateY(-2px) scale(1.02) !important;
-    box-shadow: 6px 6px 0px rgba(0,0,0,0.8);
-  }
-
-  .sticky-note-pink { background: #fbcfe8; }
-  .sticky-note-blue { background: #bfdbfe; }
-  .sticky-note-green { background: #bbf7d0; }
-
-  .tape {
-    background-color: rgba(255, 255, 255, 0.6);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    backdrop-filter: blur(2px);
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%) rotate(-2deg);
-    width: 100px;
-    height: 25px;
-    z-index: 10;
-    border-left: 2px dashed rgba(0,0,0,0.1);
-    border-right: 2px dashed rgba(0,0,0,0.1);
-  }
-
-  .marker-highlight {
-    position: relative;
-    display: inline-block;
-    z-index: 1;
-  }
-
-  .marker-highlight::before {
-    content: "";
-    position: absolute;
-    top: 40%;
-    left: -2%;
-    width: 104%;
-    height: 60%;
-    background: rgba(254, 240, 138, 0.8);
-    z-index: -1;
-    transform: rotate(-1deg);
-  }
-
-  .y2k-button {
-    background: #fff;
-    border: 2px solid #000;
-    box-shadow: 4px 4px 0px #000;
-    transition: all 0.1s ease;
-    font-family: var(--font-pixel);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 1.25rem;
-  }
-
-  .y2k-button:active {
-    transform: translate(4px, 4px);
-    box-shadow: 0px 0px 0px #000;
-  }
-
-  /* Handwritten underlines */
-  .scribble-underline {
-    position: relative;
+  /* Wobbly hand-drawn edges for elements */
+  .wobbly-border {
+    border: 2.5px solid var(--border);
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
   }
   
-  .scribble-underline::after {
+  .wobbly-border-alt {
+    border: 2.5px solid var(--border);
+    border-radius: 15px 225px 15px 255px/255px 15px 225px 15px;
+  }
+
+  /* Highlighter Marker highlight effects */
+  .highlighter-yellow {
+    background: linear-gradient(100deg, rgba(255, 245, 99, 0.8) 0%, rgba(255, 245, 99, 0.9) 80%, rgba(255, 245, 99, 0.2) 100%);
+    padding: 0 4px;
+    border-radius: 2px;
+  }
+  
+  .highlighter-pink {
+    background: linear-gradient(100deg, rgba(255, 194, 235, 0.8) 0%, rgba(255, 194, 235, 0.9) 85%, rgba(255, 194, 235, 0.3) 100%);
+    padding: 0 4px;
+    border-radius: 2px;
+  }
+
+  .highlighter-green {
+    background: linear-gradient(100deg, rgba(166, 255, 166, 0.8) 0%, rgba(166, 255, 166, 0.9) 85%, rgba(166, 255, 166, 0.3) 100%);
+    padding: 0 4px;
+    border-radius: 2px;
+  }
+
+  .highlighter-blue {
+    background: linear-gradient(100deg, rgba(164, 233, 255, 0.8) 0%, rgba(164, 233, 255, 0.9) 85%, rgba(164, 233, 255, 0.3) 100%);
+    padding: 0 4px;
+    border-radius: 2px;
+  }
+
+  /* Taped note effects */
+  .tape-effect {
+    position: relative;
+  }
+  .tape-effect::before {
     content: "";
     position: absolute;
-    bottom: -4px;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-3deg);
+    width: 65px;
+    height: 18px;
+    background: rgba(220, 210, 180, 0.45);
+    border: 1px dashed rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    z-index: 10;
+  }
+
+  /* Double tape on corners */
+  .tape-corner-left {
+    position: relative;
+  }
+  .tape-corner-left::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    transform: rotate(-35deg);
+    width: 45px;
+    height: 14px;
+    background: rgba(220, 210, 180, 0.4);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    z-index: 10;
+  }
+
+  .tape-corner-right {
+    position: relative;
+  }
+  .tape-corner-right::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    transform: rotate(35deg);
+    width: 45px;
+    height: 14px;
+    background: rgba(220, 210, 180, 0.4);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    z-index: 10;
+  }
+
+  /* Scribble scratch-out text */
+  .scribble-strike {
+    position: relative;
+    text-decoration: none;
+  }
+  .scribble-strike::after {
+    content: "";
+    position: absolute;
     left: 0;
+    top: 50%;
     width: 100%;
-    height: 4px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M0 5 Q 25 0, 50 5 T 100 5' stroke='%232563eb' stroke-width='2' fill='none'/%3E%3C/svg%3E") repeat-x;
-    background-size: 20px 100%;
+    height: 3px;
+    background: #000;
+    border-radius: 50%;
+    transform: translateY(-50%) rotate(-1deg);
+    opacity: 0.85;
   }
 
-  .photo-frame {
-    background: white;
-    padding: 10px 10px 40px 10px;
-    border: 1px solid #ccc;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
-    transform: rotate(2deg);
+  /* 2D Paper tabs navigation */
+  .nav-tab-list {
+    display: flex;
+    gap: 4px;
   }
 
-  .pattern-grid-lg {
-    background-image: 
-      linear-gradient(to right, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
-    background-size: 40px 40px;
+  .nav-tab-btn {
+    font-family: var(--font-hud);
+    font-size: 14px;
+    background: #fff8e5;
+    border: 2px solid var(--border);
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: transform 0.12s ease, background-color 0.12s ease;
+    transform: translateY(2px);
   }
+
+  .nav-tab-btn:hover {
+    background: #fffdf5;
+    transform: translateY(0);
+  }
+
+  .nav-tab-btn.is-active {
+    background: var(--background);
+    border-bottom: 2px solid var(--background);
+    transform: translateY(0);
+    z-index: 20;
+    font-weight: bold;
+    box-shadow: 0 -2px 0px rgba(0,0,0,0.05);
+  }
+
+  /* Hand-drawn button style */
+  .diary-btn {
+    background: #ffffff;
+    border: 2.5px solid var(--border);
+    color: var(--foreground);
+    font-family: var(--font-hud);
+    font-size: 13px;
+    padding: 6px 16px;
+    cursor: pointer;
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+    box-shadow: 3px 3px 0px rgba(12, 12, 14, 0.95);
+    transition: all 0.12s ease;
+  }
+
+  .diary-btn:hover {
+    background: #fff8e5;
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0px rgba(12, 12, 14, 0.95);
+  }
+
+  .diary-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px rgba(12, 12, 14, 0.95);
+  }
+
+  /* Custom Doodles Animations */
+  .wiggle-hover:hover {
+    animation: wiggle 0.4s ease-in-out infinite alternate;
+  }
+}
+
+/* == KEYFRAMES & CUSTOM SCROLLBARS == */
+@keyframes wiggle {
+  0% { transform: rotate(-2deg); }
+  100% { transform: rotate(2deg); }
+}
+
+/* Custom pencil-scribbled scrollbars */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--surface-deep);
+  border-left: 2px solid var(--border);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border: 2px solid var(--surface-deep);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #333333;
+}
+
+/* Shell & Container Layout modifications */
+.site-shell {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 20px 80px 75px; /* Large left padding to clear the margin red line */
+  min-height: calc(100vh - 68px);
+}
+
+.site-nav {
+  border-bottom: 2.5px solid var(--border);
+  background: #fffdf5;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  padding: 8px 16px;
+}
+
+/* Interactive Map Viewport layout */
+.map-viewport {
+  width: 100%;
+  height: 600px;
+  border: 2.5px solid var(--border);
+  border-radius: 12px;
+  position: relative;
+  box-shadow: 4px 6px 0px rgba(0,0,0,0.95);
 }
