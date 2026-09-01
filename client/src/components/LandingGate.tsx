@@ -75,11 +75,11 @@ export function LandingGate({ onSelect3D, onSelectText }: LandingGateProps) {
               </div>
 
               <p className="text-xs sm:text-sm text-[#5c4f45] leading-relaxed font-sans font-medium">
-                Drive the Formula EV racecar around an interactive 3D physics sandbox. Smash into voxel letter blocks, inspect telemetry exhibits with live curves, and explore the EV workshop.
+                Drive an interactive RC toy car around a 3D physics sandbox. Smash into voxel letter blocks, drift past live telemetry exhibits, and explore 3D project zones.
               </p>
 
               <div className="flex flex-wrap gap-1.5 pt-1">
-                {["🏎️ Driving Physics", "🧱 Voxel Bricks", "📊 Telemetry Curves", "🔧 EV Shed"].map((tag, idx) => (
+                {["🚗 RC Car Physics", "🧱 Voxel Bricks", "📊 Live Telemetry", "🏁 3D Playground"].map((tag, idx) => (
                   <span key={idx} className="text-[11px] font-mono bg-[#fcf8f2] border border-[#2d2621]/20 px-2 py-0.5 rounded-md text-[#2d2621] font-bold">
                     {tag}
                   </span>
