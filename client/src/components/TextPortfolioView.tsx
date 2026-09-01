@@ -323,7 +323,7 @@ export function TextPortfolioView({ onSwitchTo3D, onOpenGate }: TextPortfolioVie
                   </div>
                   <h3 className="text-lg sm:text-xl font-serif font-black text-[#2d2621]">TUFF 18</h3>
                   <p className="text-xs sm:text-sm text-[#4a3e35] leading-relaxed">
-                    Second-generation competition car. 500Hz CAN telemetry logging on custom STM32 hardware. SUPRA SAE Design Winners &amp; P3 Overall.
+                    Refined EV platform retaining Emrax 228 architecture. Achieved Accumulator and Mechanical Technical Inspection clearance.
                   </p>
                 </div>
                 <div className="space-y-1.5 pt-3 border-t-2 border-[#2d2621]/10 text-xs font-mono text-[#2d2621]">
@@ -345,7 +345,7 @@ export function TextPortfolioView({ onSwitchTo3D, onOpenGate }: TextPortfolioVie
                   </div>
                   <h3 className="text-lg sm:text-xl font-serif font-black text-[#2d2621]">TUFF 19</h3>
                   <p className="text-xs sm:text-sm text-[#5c4f45] leading-relaxed">
-                    Next-generation racecar featuring upgraded high-density Molicel P50B cells and integrated edge battery state prediction models.
+                    Next-generation racecar featuring upgraded high-density Molicel P50B cells.
                   </p>
                 </div>
                 <div className="space-y-1.5 pt-3 border-t-2 border-[#2d2621]/10 text-xs font-mono text-[#2d2621]">

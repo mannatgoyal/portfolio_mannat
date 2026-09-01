@@ -49,7 +49,7 @@ const vehicles: VehicleData[] = [
     season: "2025-2026 Season 2 Build",
     tag: "COMPETITION ERA",
     status: "CALIBRATED",
-    desc: "Second-generation electric racecar. Shifted to an STM32F446RE-driven custom data acquisition node for high-frequency telemetry logging over a 500Hz CAN bus. Secured Engineering Design Winners and P3 Overall in the EV category at SUPRA SAE.",
+    desc: "Refined EV platform retaining Emrax 228 architecture. Achieved Accumulator and Mechanical Technical Inspection clearance.",
     note: "Telemetry validated: Secured clean CAN bus logging under full battery discharge. Low-voltage sensor loops validated at 100% telemetry resolution.",
     highlight: "SUPRA SAE 2025 - Overall P3 (EV) & Design Winners",
     specs: [
@@ -76,7 +76,7 @@ const vehicles: VehicleData[] = [
     season: "2026-2027 Season 3 Build",
     tag: "IN ASSEMBLY",
     status: "COMPILING",
-    desc: "Next-generation electric vehicle. Upgrading the battery accumulator pack to high-density Molicel P50B cells. Integrating state estimation algorithms directly into the low-voltage control loop to prevent thermal runaway anomalies at the edge.",
+    desc: "Next-generation racecar featuring upgraded high-density Molicel P50B cells.",
     note: "Design Phase: Routing low-voltage wiring harnesses through sidepods with advanced shielding. Structuring modular cell telemetry boards.",
     specs: [
       { label: "DAQ BRAIN", val: "Next-Gen STM32 Node" },
