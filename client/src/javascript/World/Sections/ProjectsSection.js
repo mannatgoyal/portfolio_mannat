@@ -173,7 +173,7 @@ export default class ProjectsSection
                 floorTexture: generateFloorTexture('fateh_hub'),
                 link:
                 {
-                    href: 'https://github.com/mannatgoyal/team-fateh-hub',
+                    href: 'https://www.teamfateh.com',
                     x: - 4.8,
                     y: - 4,
                     halfExtents:

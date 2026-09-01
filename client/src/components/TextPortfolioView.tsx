@@ -499,7 +499,7 @@ export function TextPortfolioView({ onSwitchTo3D, onOpenGate }: TextPortfolioVie
                     <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-[#e8dff5] border border-[#2d2621]/20 text-[#2d2621]">
                       WEB &amp; TELEMETRY
                     </span>
-                    <a href="https://github.com/mannatgoyal/team-fateh-hub" target="_blank" rel="noopener noreferrer" className="p-1 rounded-lg hover:bg-[#f5ece0] text-[#2d2621] transition-colors">
+                    <a href="https://www.teamfateh.com" target="_blank" rel="noopener noreferrer" className="p-1 rounded-lg hover:bg-[#f5ece0] text-[#2d2621] transition-colors">
                       <ExternalLink className="w-4 h-4" />
                     </a>
                   </div>
