@@ -67,18 +67,18 @@ export default class InformationSection
         ctx.fillText('• B.E. Computer Engineering - Thapar Inst. (2023-27)', 40, 138)
         ctx.fillText('• B.Sc.(Hons) Data Science & AI - IIT Guwahati (2023-27)', 40, 163)
         
-        ctx.fillText('• Team Manager - Team Fateh Formula Student EV (2026-)', 40, 205)
-        ctx.fillText('  Leads engineering execution across mechanical & HV.', 40, 227)
-        ctx.fillText('• Electronics & DAQ Engineer - Team Fateh (2023-Pres.)', 40, 260)
-        ctx.fillText('  STM32F446 & ESP32 telemetry, 500Hz CAN bus loggers,', 40, 282)
-        ctx.fillText('  Molicel pack sensors & vehicle dynamics telemetry.', 40, 304)
+        ctx.fillText('• Team Manager & DAQ Engineer - Team Fateh (2023-Pres.)', 40, 200)
+        ctx.fillText('  Team Manager (Jan 2026-): Leads 40-50 member org,', 40, 222)
+        ctx.fillText('  priorities & roadmap against Rs.45L budget.', 40, 244)
+        ctx.fillText('  Industry 4.0 digital thread (SolidWorks, Infor, MES, AWS).', 40, 266)
+        ctx.fillText('  DAQ: STM32F446 & ESP32 500Hz CAN bus acquisition.', 40, 288)
 
         ctx.font = 'bold 18px monospace'
-        ctx.fillText('COMPETITION AWARDS', 40, 348)
+        ctx.fillText('COMPETITION AWARDS', 40, 335)
         ctx.font = '14px monospace'
-        ctx.fillText('• SUPRA SAE 2025: Overall P3, Statics P2 (EV Category)', 40, 375)
-        ctx.fillText('• Formula Bharat 2025: Engineering Design Finalists', 40, 398)
-        ctx.fillText('• Pi-EV 2024: Procurement Event Winners', 40, 421)
+        ctx.fillText('• SUPRA SAE 2025: 2nd Runner-Up Overall, 1st Design', 40, 362)
+        ctx.fillText('• Formula Bharat 2025: Top 10 Overall, Design Finalist', 40, 385)
+        ctx.fillText('• Pi-EV 2024: Procurement Event Winner', 40, 408)
 
         // Column 2 (Right): Core Projects & Technical Stack
         ctx.font = 'bold 20px monospace'

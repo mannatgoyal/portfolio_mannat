@@ -240,47 +240,40 @@ export function TextPortfolioView({ onSwitchTo3D, onOpenGate }: TextPortfolioVie
             </div>
 
             <div className="space-y-6">
-              {/* Team Manager */}
               <div className="p-6 sm:p-8 rounded-2xl bg-white border-2 sm:border-3 border-[#2d2621] shadow-[4px_4px_0px_#2d2621] space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b-2 border-[#2d2621]/10 pb-3">
                   <div>
                     <h3 className="text-lg sm:text-xl font-serif font-black text-[#2d2621]">
-                      Team Manager — Team Fateh (Formula Student Electric)
+                      Team Manager &amp; Electronics / Data Acquisition Engineer — Team Fateh
                     </h3>
                     <p className="text-xs sm:text-sm font-mono font-bold text-[#d68c45] mt-0.5">
-                      Feb 2026 – Present // Leadership &amp; Engineering Operations
+                      Formula Student EV Program, Thapar Institute of Engineering &amp; Technology · Oct 2023 – Present (Team Manager since Jan 2026)
                     </p>
                   </div>
                   <span className="self-start sm:self-auto text-xs font-mono font-black px-2.5 py-0.5 rounded-full bg-[#fce1e4] border border-[#2d2621]">
-                    ACTIVE HEAD
+                    LEADERSHIP &amp; HARDWARE
                   </span>
                 </div>
-                <ul className="text-xs sm:text-sm text-[#4a3e35] space-y-2 list-disc pl-5 leading-relaxed font-sans font-medium">
-                  <li>Directing engineering execution across mechanical, low-voltage electronics, accumulator safety, and high-voltage powertrain subsystems.</li>
-                  <li>Managing competition timelines, test tracks, vehicle integration milestones, and budget allocations for TUFF 18 and TUFF 19.</li>
-                  <li>Serving as primary technical liaison between engineering teams, faculty advisers, technical scrutineers, and corporate industry sponsors.</li>
-                </ul>
-              </div>
 
-              {/* DAQ Engineer */}
-              <div className="p-6 sm:p-8 rounded-2xl bg-white border-2 sm:border-3 border-[#2d2621] shadow-[4px_4px_0px_#2d2621] space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                  <div>
-                    <h3 className="text-lg sm:text-xl font-serif font-black text-[#2d2621]">
-                      Electronics &amp; Data Acquisition (DAQ) Engineer — Team Fateh
-                    </h3>
-                    <p className="text-xs sm:text-sm font-mono font-bold text-[#94b0a0] mt-0.5">
-                      Oct 2023 – Present // Embedded Firmware &amp; CAN Telemetry
-                    </p>
-                  </div>
-                  <span className="self-start sm:self-auto text-xs font-mono font-black px-2.5 py-0.5 rounded-full bg-[#e2f0cb] border border-[#2d2621]">
-                    HARDWARE DEV
-                  </span>
-                </div>
-                <ul className="text-xs sm:text-sm text-[#4a3e35] space-y-2 list-disc pl-5 leading-relaxed font-sans font-medium">
-                  <li>Designed and programmed custom STM32F446RE &amp; ESP32 acquisition nodes capturing high-frequency sensor streams (voltage, cell temperature, vehicle dynamics).</li>
-                  <li>Built reliable 500Hz CAN bus communication networks with noise isolation between low-voltage microcontrollers and the high-voltage inverter.</li>
-                  <li>Constructed structured time-series datasets to evaluate tyre degradation, energy expenditure, and predictive thermal runaway algorithms.</li>
+                <ul className="text-xs sm:text-sm text-[#4a3e35] space-y-2.5 list-disc pl-5 leading-relaxed font-sans font-medium">
+                  <li>
+                    Lead a 40–50 member cross-functional EV engineering organization spanning electronics, mechanical and business functions, driving roadmap, priorities, project scope and delivery against a ₹45L budget.
+                  </li>
+                  <li>
+                    Standardized documentation, timelines and review processes across sub-teams; track risks, issues, blockers and decisions while coordinating 40+ stakeholders across the engineering program.
+                  </li>
+                  <li>
+                    Led a Digital Manufacturing &amp; Industry 4.0 transformation case for Formula Bharat, designing an ISA-95-inspired digital thread across PLM, ERP, MES, edge and cloud systems; developed the architecture, automation workflows, cost model and phased implementation roadmap for 5,000 vehicles/month.
+                  </li>
+                  <li>
+                    Built a digital manufacturing architecture connecting SolidWorks, Infor PLM, Infor CloudSuite ERP, Infor ION, MES and AWS edge/cloud layers; modeled automated BOM synchronization, procurement controls and edge-based quality interlocks to create a single digital thread from design to production.
+                  </li>
+                  <li>
+                    Coordinated technical, business and sponsorship requirements across sub-teams into structured external-facing deliverables, including a 13-section sponsor partnership brochure.
+                  </li>
+                  <li>
+                    Designed and programmed custom STM32F446RE &amp; ESP32 data acquisition nodes capturing high-frequency sensor streams (voltage, cell temperature, vehicle dynamics) over a 500Hz CAN bus with noise isolation.
+                  </li>
                 </ul>
               </div>
             </div>
@@ -540,19 +533,19 @@ export function TextPortfolioView({ onSwitchTo3D, onOpenGate }: TextPortfolioVie
               {[
                 {
                   title: "SUPRA SAE 2025",
-                  result: "Overall P3 & Statics P2 (EV Category) & Engineering Design Winners",
-                  org: "SAE India",
+                  result: "2nd Runner-Up, EV Overall; 1st, Engineering Design",
+                  org: "SAE India Formula Student",
                   color: "#fce1e4"
                 },
                 {
                   title: "Formula Bharat 2025",
-                  result: "Engineering Design Finalists (EV Division)",
-                  org: "Formula Bharat",
+                  result: "Top 10 Overall; Engineering Design Finalist",
+                  org: "Formula Bharat EV Division",
                   color: "#daeaf6"
                 },
                 {
                   title: "Pi-EV 2024",
-                  result: "Procurement Event Winners",
+                  result: "Procurement Winner",
                   org: "Pi-EV Engineering Showcase",
                   color: "#e2f0cb"
                 },

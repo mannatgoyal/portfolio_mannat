@@ -16,11 +16,11 @@ interface Milestone {
 const milestones: Milestone[] = [
   {
     year: "2026",
-    title: "Team Manager & Software Architect",
-    subtitle: "Formula Student EV Program - Team Fateh",
+    title: "Team Manager & Electronics / DAQ Engineer",
+    subtitle: "Formula Student EV Program - Team Fateh (Oct 2023 - Present)",
     badge: "LEADERSHIP SCALE",
     colorClass: "bg-[#e2f0cb]",
-    desc: "Promoted to Team Manager of Team Fateh. Managed engineering timelines and budgets across electronics, mechanical, and battery subsystems, culminating in Design Winners and Overall P3 in the EV class at SUPRA SAE. Architected the team's Next.js telemetry blogging platform.",
+    desc: "Leading a 40–50 member cross-functional EV engineering organization spanning electronics, mechanical, and business functions against a ₹45L budget. Spearheaded an ISA-95 digital manufacturing thread for Formula Bharat, standardizing reviews and tracking deliverables across 40+ stakeholders.",
     icon: <Award className="w-3.5 h-3.5 text-[#2d2621]" />
   },
   {
