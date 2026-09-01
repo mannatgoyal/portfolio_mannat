@@ -17,9 +17,52 @@
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@400..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Patrick+Hand&family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   </head>
   <body>
+    <canvas class="canvas js-canvas"></canvas>
+
+    <div class="threejs-journey is-hover-none js-threejs-journey">
+        <div class="message js-message">
+            <div class="boy">
+                <div class="variant is-hi">
+                    <div class="body"></div>
+                    <div class="arm js-boy-arm"></div>
+                </div>
+                <div class="variant is-yay"></div>
+                <div class="variant is-shrugging"></div>
+            </div>
+            <div class="bubble">
+                <div class="text">Hey! Welcome to my 3D driving portfolio.</div>
+                <div class="tip"></div>
+            </div>
+        </div>
+        <div class="message js-message">
+            <div class="bubble">
+                <div class="text">Use WASD or Arrow Keys to drive around and explore my projects!</div>
+                <div class="tip"></div>
+            </div>
+        </div>
+        <div class="message js-message is-answers">
+            <a href="#" class="answer is-no js-no">
+                <span class="background"></span>
+                <span class="hover"></span>
+                <span class="label">Nah, I'm good</span>
+            </a>
+            <a href="https://github.com/mannatgoyal" target="_blank" rel="noopener" class="answer is-yes js-yes">
+                <span class="background"></span>
+                <span class="hover"></span>
+                <span class="label">Visit GitHub!</span>
+            </a>
+        </div>
+        <div class="message js-message">
+            <div class="bubble">
+                <div class="text">Alright then.<br>Have fun driving and try not to crash too hard!</div>
+                <div class="tip"></div>
+            </div>
+        </div>
+    </div>
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

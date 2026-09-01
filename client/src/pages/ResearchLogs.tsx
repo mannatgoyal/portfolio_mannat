@@ -1,167 +1,165 @@
-import { motion } from "framer-motion";
-import { Brain, Battery, Cpu } from "lucide-react";
-import { playHoverSound } from "@/lib/audio";
+import { Brain, Battery, Cpu, Shield } from "lucide-react";
+import { playHoverSound, playClickSound } from "@/lib/audio";
 
-export default function ResearchLogs() {
-  const directions = [
-    {
-      code: "DIR-01",
-      title: "Motorsport Strategy & Reinforcement Learning",
-      status: "ACTIVE RESEARCH",
-      statusClass: "highlighter-blue",
-      icon: <Brain className="w-5 h-5 text-blue-600 flex-shrink-0" />,
-      manifesto: `Formula Student race strategy is not just about driving fast. It is about understanding compound decay, track temperature, and traffic. If you make a pit stop at the wrong time, you end up stuck behind a slow car that has broad wings and refuses to let you pass.
+interface ResearchDir {
+  code: string;
+  title: string;
+  status: string;
+  badgeClass: string;
+  icon: React.ReactNode;
+  manifesto: string;
+  researchAreas: string[];
+}
 
-I am using Reinforcement Learning stint simulators to model competitive motorsport racing. By using game theory to predict trust dynamics, the models simulate when drivers should defend, when to push, and when to conserve tyres.
+const directions: ResearchDir[] = [
+  {
+    code: "DIR-01",
+    title: "Motorsport Reinforcement Learning",
+    status: "ACTIVE SOLVER",
+    badgeClass: "bg-[#e2f0cb]",
+    icon: <Brain className="w-4 h-4 text-[#2d2621]" />,
+    manifesto: "Formula Student EV dynamics require real-time strategic modeling. Stint strategy algorithms must resolve tire compound decay patterns, track temp variables, and competitive grid placement. We simulate trust dynamics across multiple vehicles to predict optimal pit stops and battery preservation.",
+    researchAreas: ["Reinforcement Learning", "Game Theory", "Decay Modeling"],
+  },
+  {
+    code: "DIR-02",
+    title: "VoltQuant: Quantum Battery SOH",
+    status: "CALIBRATION",
+    badgeClass: "bg-[#ebd9cc]",
+    icon: <Battery className="w-4 h-4 text-[#2d2621]" />,
+    manifesto: "VoltQuant models lithium State of Health (SOH) at the edge. By mapping parameter-embedded cell inputs (voltage, current, temperature) via ZZFeatureMaps and AngleEmbeddings onto Parameterized Quantum Circuits (PQCs), we prevent thermal runaway.",
+    researchAreas: ["Hybrid Quantum ML", "ZZFeatureMaps", "PennyLane / Qiskit"],
+  },
+  {
+    code: "DIR-03",
+    title: "Cyber-Physical Network Shielding",
+    status: "SHIELD ENABLED",
+    badgeClass: "bg-[#daeaf6]",
+    icon: <Shield className="w-4 h-4 text-[#2d2621]" />,
+    manifesto: "Industrial networks are vulnerable to switch-level injections. Using XGBoost gateway packet classifiers, a Deep Q-Network (DQN) agent evaluates alerts and executes instant firewall mitigation scripts, protecting critical STM32 CAN bus lines.",
+    researchAreas: ["XGBoost Classifiers", "DQN Mitigation", "CAN Bus Safeguards"],
+  },
+  {
+    code: "DIR-04",
+    title: "Compression-Robust CNN Forensics",
+    status: "VERIFIED",
+    badgeClass: "bg-[#e8dff5]",
+    icon: <Cpu className="w-4 h-4 text-[#2d2621]" />,
+    manifesto: "Digital verification models generally require raw pixel streams. This pipeline leverages ResNet18 convolutional backbones trained on compression-resistant textures, mapping features via Grad-CAM to produce weak localization heatmaps.",
+    researchAreas: ["ResNet18 CNN", "Grad-CAM Heatmaps", "Image Manipulation"],
+  },
+];
 
-It is basically like playing chess, but at two hundred miles per hour with actual rubber.`,
-      researchAreas: ["Reinforcement Learning", "Game Theory", "Motorsport Strategy Simulation", "Tire Degradation Modeling"],
-    },
-    {
-      code: "DIR-02",
-      title: "VoltQuant: Hybrid Quantum Machine Learning",
-      status: "CAPSTONE RESEARCH",
-      statusClass: "highlighter-yellow",
-      icon: <Battery className="w-5 h-5 text-amber-600 flex-shrink-0" />,
-      manifesto: `VoltQuant is my capstone project focusing on predicting thermal anomalies and state of health in electric vehicle accumulator packs. Classical neural networks are fine, but quantum circuits can map battery cell feature spaces in higher dimensions.
-
-I feed parameter-embedded cell data (using AngleEmbedding and ZZFeatureMaps) into parameterized quantum circuits (PQCs) built on PennyLane and Qiskit. It is basically using quantum physics to predict when our lithium-ion cells are about to have a temper tantrum.
-
-The seniors think I just put the word 'Quantum' in the title to get more sponsorship funding, but it actually compiles (mostly).`,
-      researchAreas: ["Hybrid Quantum ML", "ZZFeatureMaps & Embeddings", "Anomaly Detection", "PennyLane / Qiskit Circuits"],
-    },
-    {
-      code: "DIR-03",
-      title: "Intelligent Cyber-Physical Security",
-      status: "ACTIVE RESEARCH",
-      statusClass: "highlighter-blue",
-      icon: <Brain className="w-5 h-5 text-blue-600 flex-shrink-0" />,
-      manifesto: `Modern networked systems are highly vulnerable to intrusion. When a server gets hit by a DDoS or brute-force scan, human admins are too slow to respond before systems go down.
-
-My research is in automated threat detection and mitigation on active networks. I use Random Forest and XGBoost classifiers to spot anomalous packet traffic, and train DQN reinforcement learning agents to execute real-time firewall block actions.
-
-It is like having a digital bouncer on the network switch.`,
-      researchAreas: ["XGBoost Threat Classifiers", "DQN Automated Shielding", "Intrusion Prevention Systems", "Real-Time Firewall Controls"],
-    },
-    {
-      code: "DIR-04",
-      title: "Computer Vision & Digital Forensics",
-      status: "HARDWARE VERIFIED",
-      statusClass: "highlighter-green",
-      icon: <Cpu className="w-5 h-5 text-emerald-600 flex-shrink-0" />,
-      manifesto: `In computer vision, it is easy to spot a fake image if you have a massive cloud server. But what happens when the image is compressed down to three pixels on an active web database?
-
-My research is in compression-robust digital forensics. I trained ResNet18 pipelines to detect subtle texture manipulations in digital images and output weak localization maps using Grad-CAM.
-
-It is extremely useful for checking if someone cropped a sponsor sticker out of a race photo, or verifying that the mechanical team actually ran physical stress simulations instead of editing the pictures.`,
-      researchAreas: ["Digital Image Forgery", "Grad-CAM Weak Localization", "ResNet18 CNN Optimization", "Compression-Robust Analysis"],
-    },
-  ];
-
+export function ResearchLogsLeft() {
   return (
-    <div className="site-shell max-w-4xl mx-auto py-6 px-4">
-      {/* Red margin line visual assist */}
-      <div className="absolute left-[58px] top-0 bottom-0 w-0.5 bg-red-400 pointer-events-none" />
+    <div className="notebook-page-content lined select-none">
+      <div className="margin-line" />
+      <div className="margin-padding space-y-4">
+        
+        {/* Header tag */}
+        <div className="flex items-center justify-between border-b-2 border-stone-200/50 pb-2 mb-2 mt-1">
+          <span className="font-serif font-black text-sm text-[#2d2621] uppercase">
+            Research logs (Vol. I)
+          </span>
+          <span className="font-mono text-[9px] text-[#94b0a0] font-bold">[ENTRY 05]</span>
+        </div>
 
-      <div className="space-y-6">
-        {/* Header */}
-        <section className="mb-6 border-b-2 border-black pb-4 mt-4 flex items-center justify-between">
-          <div>
-            <h1 className="font-hud text-2xl font-extrabold text-black uppercase tracking-tight">
-              RESEARCH LOGS &amp; BRAINSTORMS
-            </h1>
-            <span className="text-zinc-500 font-hud text-[11px] block mt-1 uppercase">
-              SYS-04 // Active Directions &amp; Engineering Manifestos
-            </span>
-          </div>
-        </section>
-
-        {/* Legal Pad Preamble */}
-        <section className="notebook-panel p-5 bg-[#fefce8] relative">
-          {/* Tape decoration */}
-          <div className="absolute -top-3 left-12 w-16 h-4 bg-yellow-100/50 border border-dashed border-black/10 rotate-[2deg]" />
-          
-          <div className="border-b border-black/10 pb-3 mb-4 mt-1">
-            <h2 className="font-hud text-md font-bold text-black uppercase">
-              Orientation: Where ML Meets Hardware
-            </h2>
-          </div>
-          
-          <div className="text-[16px] text-zinc-800 space-y-3 leading-relaxed">
-            <p>
-              These are not random interest areas. They are active problems I am working on,
-              driven by the constraints and failures I encounter in real engineering systems -
-              specifically electrified racecars, high-frequency embedded telemetry, and battery safety.
-            </p>
-            <p className="font-bold border-t-2 border-black border-dashed pt-3 mt-3">
-              Every research direction listed here has a concrete artifact: code, hardware, or a result.
-              For the project implementations behind each direction, see the Experiments log.
-            </p>
-          </div>
-        </section>
-
-        {/* Yellow Legal Pad Sections */}
-        <div className="space-y-6">
-          {directions.map((dir, idx) => (
-            <motion.div
+        {/* First two logs */}
+        <div className="space-y-4 pt-1">
+          {directions.slice(0, 2).map((dir) => (
+            <div 
               key={dir.code}
-              initial={{ opacity: 0, x: -6 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: idx * 0.05 }}
-              viewport={{ once: true }}
-              onMouseEnter={playHoverSound}
-              className="notebook-panel p-5 bg-[#fefbeb] relative"
-              style={{
-                backgroundImage: "linear-gradient(to right, transparent 35px, rgba(239, 68, 68, 0.2) 35px, rgba(239, 68, 68, 0.2) 37px, transparent 37px)",
-                paddingLeft: "52px"
-              }}
+              className="p-3 bg-white border-2 border-[#2d2621]/30 rounded-xl shadow-[2px_2px_0px_rgba(45,38,33,0.1)] space-y-2 select-none"
             >
-              {/* Paper Clip Decoration at left margin */}
-              <div className="absolute top-4 left-3 w-5 h-8 border-2 border-zinc-400 rounded-full rotate-[12deg] opacity-70 pointer-events-none" />
-
-              {/* Header */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-black/10 pb-3 mb-4">
-                <div className="flex items-center gap-2.5">
-                  {dir.icon}
-                  <div>
-                    <h3 className="font-hud text-md font-bold text-black uppercase leading-snug">
-                      {dir.title}
-                    </h3>
-                    <span className="font-mono text-[10px] text-zinc-400 font-bold block">{dir.code}</span>
+              <div className="flex justify-between items-center border-b border-stone-150 pb-1.5">
+                <div className="flex items-center gap-1.5">
+                  <div className="p-1 bg-[#fcf8f2] border border-[#2d2621]/20 rounded-full">
+                    {dir.icon}
                   </div>
+                  <span className="font-serif text-[11px] font-black text-[#2d2621] uppercase leading-none">
+                    {dir.title}
+                  </span>
                 </div>
-                <span className={`font-hud text-[9px] uppercase font-bold px-2 py-0.5 rounded border border-black/10 ${dir.statusClass}`}>
+                <span className={`text-[7.5px] font-mono font-bold px-2 py-0.2 rounded-full border border-[#2d2621]/20 ${dir.badgeClass}`}>
                   {dir.status}
                 </span>
               </div>
+              
+              <p className="text-[10px] text-stone-600 leading-normal font-sans font-medium">
+                {dir.manifesto}
+              </p>
 
-              {/* Manifesto text box */}
-              <div className="p-4 bg-white border-2 border-black border-dashed rounded relative">
-                <pre className="font-sans text-[15px] text-zinc-800 leading-relaxed whitespace-pre-wrap">
-                  {dir.manifesto}
-                </pre>
+              <div className="flex flex-wrap gap-1 pt-1 border-t border-stone-100">
+                {dir.researchAreas.map((area, i) => (
+                  <span key={i} className="text-[8px] font-mono text-stone-400 font-bold uppercase">
+                    #{area.replace(/\s+/g, "")}
+                  </span>
+                ))}
               </div>
-
-              {/* Active Research Areas tags */}
-              <div className="pt-2">
-                <span className="font-hud font-bold text-[10px] text-zinc-400 block uppercase mb-2">
-                  ACTIVE RESEARCH AREAS:
-                </span>
-                <div className="flex flex-wrap gap-2">
-                  {dir.researchAreas.map((area, i) => (
-                    <span
-                      key={i}
-                      className="font-hud text-xs bg-white border-2 border-black rounded px-2.5 py-0.5 shadow-[2px_2px_0px_rgba(0,0,0,1)] uppercase font-bold"
-                    >
-                      {area}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
+            </div>
           ))}
         </div>
+
       </div>
     </div>
   );
+}
+
+export function ResearchLogsRight() {
+  return (
+    <div className="notebook-page-content lined select-none">
+      <div className="margin-line" />
+      <div className="margin-padding space-y-4">
+        
+        {/* Header tag */}
+        <div className="flex items-center justify-between border-b-2 border-stone-200/50 pb-2 mb-2 mt-1">
+          <span className="font-serif font-black text-sm text-[#2d2621] uppercase">
+            Research logs (Vol. II)
+          </span>
+          <span className="font-mono text-[9px] text-[#94b0a0] font-bold">[ENTRY 06]</span>
+        </div>
+
+        {/* Next two logs */}
+        <div className="space-y-4 pt-1">
+          {directions.slice(2, 4).map((dir) => (
+            <div 
+              key={dir.code}
+              className="p-3 bg-white border-2 border-[#2d2621]/30 rounded-xl shadow-[2px_2px_0px_rgba(45,38,33,0.1)] space-y-2 select-none"
+            >
+              <div className="flex justify-between items-center border-b border-stone-150 pb-1.5">
+                <div className="flex items-center gap-1.5">
+                  <div className="p-1 bg-[#fcf8f2] border border-[#2d2621]/20 rounded-full">
+                    {dir.icon}
+                  </div>
+                  <span className="font-serif text-[11px] font-black text-[#2d2621] uppercase leading-none">
+                    {dir.title}
+                  </span>
+                </div>
+                <span className={`text-[7.5px] font-mono font-bold px-2 py-0.2 rounded-full border border-[#2d2621]/20 ${dir.badgeClass}`}>
+                  {dir.status}
+                </span>
+              </div>
+              
+              <p className="text-[10px] text-stone-600 leading-normal font-sans font-medium">
+                {dir.manifesto}
+              </p>
+
+              <div className="flex flex-wrap gap-1 pt-1 border-t border-stone-100">
+                {dir.researchAreas.map((area, i) => (
+                  <span key={i} className="text-[8px] font-mono text-stone-400 font-bold uppercase">
+                    #{area.replace(/\s+/g, "")}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+export default function ResearchLogs() {
+  return null;
 }

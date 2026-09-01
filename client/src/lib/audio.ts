@@ -1,7 +1,7 @@
 /**
- * audio.ts — Spacecraft audio synthesis
- * Mechanical relay clicks and sub-bass telemetry pings.
- * All sounds are synthesized via Web Audio API — no external assets.
+ * audio.ts — Naturalist & Papercraft Acoustic Synthesizer
+ * Pure Web Audio API synthesis for page turns, paper crinkles, wood-block clicks, and drawer slides.
+ * All sound assets are generated dynamically on-the-fly — zero external audio files.
  */
 
 let soundEnabled = false;
@@ -26,14 +26,13 @@ export function getSoundEnabled(): boolean {
 export function setSoundEnabled(enabled: boolean): void {
   soundEnabled = enabled;
   if (!enabled && audioContext) {
-    audioContext.close();
+    audioContext.close().catch(() => {});
     audioContext = null;
   }
 }
 
 /**
- * Mechanical switch click — short, dry, precise.
- * Modeled on a low-mass tactile relay actuating.
+ * Soft wood-block click — represents touch inputs on wood/paper items.
  */
 export function playClickSound(): void {
   const ctx = getAudioContext();
@@ -41,50 +40,26 @@ export function playClickSound(): void {
 
   const now = ctx.currentTime;
 
-  // Body — low-frequency thump (the mass of the switch actuating)
-  const bodyBuf = ctx.createBuffer(1, ctx.sampleRate * 0.04, ctx.sampleRate);
-  const bodyData = bodyBuf.getChannelData(0);
-  for (let i = 0; i < bodyData.length; i++) {
-    const t = i / ctx.sampleRate;
-    const envelope = Math.exp(-t * 120);
-    bodyData[i] = (Math.random() * 2 - 1) * envelope * 0.6;
-  }
-  const bodyNode = ctx.createBufferSource();
-  bodyNode.buffer = bodyBuf;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
 
-  // Tone — very brief 800Hz ping (the contact bounce resonance)
-  const pingOsc = ctx.createOscillator();
-  pingOsc.type = "sine";
-  pingOsc.frequency.setValueAtTime(800, now);
-  pingOsc.frequency.exponentialRampToValueAtTime(180, now + 0.025);
+  osc.type = "triangle";
+  // Warm, medium-low resonance
+  osc.frequency.setValueAtTime(320, now);
+  osc.frequency.exponentialRampToValueAtTime(80, now + 0.04);
 
-  const pingGain = ctx.createGain();
-  pingGain.gain.setValueAtTime(0.12, now);
-  pingGain.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
+  gain.gain.setValueAtTime(0.2, now);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.045);
 
-  // High-pass filter — remove sub-bass from the ping
-  const hpf = ctx.createBiquadFilter();
-  hpf.type = "highpass";
-  hpf.frequency.value = 400;
+  osc.connect(gain);
+  gain.connect(ctx.destination);
 
-  const masterGain = ctx.createGain();
-  masterGain.gain.value = 0.55;
-
-  bodyNode.connect(masterGain);
-  pingOsc.connect(pingGain);
-  pingGain.connect(hpf);
-  hpf.connect(masterGain);
-  masterGain.connect(ctx.destination);
-
-  bodyNode.start(now);
-  bodyNode.stop(now + 0.05);
-  pingOsc.start(now);
-  pingOsc.stop(now + 0.04);
+  osc.start(now);
+  osc.stop(now + 0.05);
 }
 
 /**
- * Hover tone — barely-audible, high-frequency confirmation.
- * Modeled on a telemetry lock acknowledgment.
+ * Soft paper-rustle chime — a high-pass frequency brush when hovering.
  */
 export function playHoverSound(): void {
   const ctx = getAudioContext();
@@ -92,18 +67,111 @@ export function playHoverSound(): void {
 
   const now = ctx.currentTime;
 
-  const osc = ctx.createOscillator();
-  osc.type = "sine";
-  osc.frequency.setValueAtTime(1400, now);
-  osc.frequency.exponentialRampToValueAtTime(1100, now + 0.06);
+  // Synthesize white noise buffer for paper brush texture
+  const bufferSize = ctx.sampleRate * 0.05;
+  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) {
+    data[i] = Math.random() * 2 - 1;
+  }
+
+  const noiseNode = ctx.createBufferSource();
+  noiseNode.buffer = buffer;
+
+  // Bandpass filter to isolate the paper rustle frequency
+  const filter = ctx.createBiquadFilter();
+  filter.type = "bandpass";
+  filter.frequency.setValueAtTime(4500, now);
+  filter.Q.value = 4.0;
 
   const gain = ctx.createGain();
-  gain.gain.setValueAtTime(0.06, now);
-  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+  gain.gain.setValueAtTime(0.02, now);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.045);
 
-  osc.connect(gain);
+  noiseNode.connect(filter);
+  filter.connect(gain);
+  gain.connect(ctx.destination);
+
+  noiseNode.start(now);
+  noiseNode.stop(now + 0.05);
+}
+
+/**
+ * Paper page-flip swoosh — longer noise sweep for transitioning pages.
+ */
+export function playPageFlipSound(): void {
+  const ctx = getAudioContext();
+  if (!ctx) return;
+
+  const now = ctx.currentTime;
+  const duration = 0.35;
+
+  // Synthesize noise buffer
+  const bufferSize = ctx.sampleRate * duration;
+  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) {
+    data[i] = Math.random() * 2 - 1;
+  }
+
+  const noiseNode = ctx.createBufferSource();
+  noiseNode.buffer = buffer;
+
+  // Sweeping bandpass filter to simulate page rotation
+  const filter = ctx.createBiquadFilter();
+  filter.type = "bandpass";
+  filter.frequency.setValueAtTime(1200, now);
+  filter.frequency.exponentialRampToValueAtTime(3200, now + duration);
+  filter.Q.value = 1.5;
+
+  const gain = ctx.createGain();
+  gain.gain.setValueAtTime(0.05, now);
+  gain.gain.linearRampToValueAtTime(0.12, now + duration * 0.3);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+  noiseNode.connect(filter);
+  filter.connect(gain);
+  gain.connect(ctx.destination);
+
+  noiseNode.start(now);
+  noiseNode.stop(now + duration);
+}
+
+/**
+ * Wooden drawer slide — low-frequency friction sweep.
+ */
+export function playDrawerSlideSound(): void {
+  const ctx = getAudioContext();
+  if (!ctx) return;
+
+  const now = ctx.currentTime;
+  const duration = 0.25;
+
+  // Triangle oscillator for wooden friction
+  const osc = ctx.createOscillator();
+  osc.type = "triangle";
+  osc.frequency.setValueAtTime(110, now);
+  osc.frequency.linearRampToValueAtTime(80, now + duration);
+
+  // Bandpass filter to add friction noise
+  const filter = ctx.createBiquadFilter();
+  filter.type = "lowpass";
+  filter.frequency.value = 350;
+
+  const gain = ctx.createGain();
+  gain.gain.setValueAtTime(0.15, now);
+  gain.gain.linearRampToValueAtTime(0.05, now + duration * 0.5);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+  osc.connect(filter);
+  filter.connect(gain);
   gain.connect(ctx.destination);
 
   osc.start(now);
-  osc.stop(now + 0.08);
+  osc.stop(now + duration);
+}
+
+// Map old names for compatibility if referenced during page transition
+export function playBootSound(): void {
+  playPageFlipSound();
 }

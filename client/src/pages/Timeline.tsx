@@ -1,265 +1,249 @@
+import { useState } from "react";
+import { Award, Cpu, Star, Compass, BookOpen, Calendar, Waves } from "lucide-react";
+import { playHoverSound, playClickSound, playPageFlipSound } from "@/lib/audio";
 import { motion } from "framer-motion";
-import { Calendar, Cpu, Star } from "lucide-react";
-import { playHoverSound } from "@/lib/audio";
 
-export default function Timeline() {
-  const milestones = [
-    {
-      year: "2026",
-      title: "Team Manager & Digital Lead",
-      subtitle: "Leading Team Fateh EV + teamfateh.com",
-      badge: "LEADERSHIP ERA",
-      badgeClass: "highlighter-blue",
-      desc: "Promoted to Team Manager of Team Fateh. Directed operations, budget, and department coordination for the season, leading to Design Winners and Overall P3 in the EV category at SUPRA SAE 2026. Designed and built the team's official Next.js website and technical blogs.",
-      doodle: (
-        <svg width="45" height="45" viewBox="0 0 40 40" fill="none" className="inline-block align-middle ml-2">
-          {/* Stick figure manager with book */}
-          <circle cx="20" cy="12" r="5" stroke="black" strokeWidth="1.5" fill="white" />
-          <path d="M20 7 C20 4 17 6 18 6" stroke="black" strokeWidth="1" />
-          <line x1="20" y1="17" x2="20" y2="28" stroke="black" strokeWidth="1.5" />
-          <path d="M20 20 L12 25 L8 24" stroke="black" strokeWidth="1.5" strokeLinecap="round" />
-          <path d="M20 20 L28 25 L32 24" stroke="black" strokeWidth="1.5" strokeLinecap="round" />
-          <path d="M20 28 L16 38" stroke="black" strokeWidth="1.5" />
-          <path d="M20 28 L24 38" stroke="black" strokeWidth="1.5" />
-          {/* Tiny book */}
-          <rect x="5" y="18" width="6" height="8" rx="0.5" fill="white" stroke="black" strokeWidth="1" />
-          <line x1="8" y1="18" x2="8" y2="26" stroke="black" strokeWidth="0.8" />
-        </svg>
-      )
-    },
-    {
-      year: "2025",
-      title: "TUFF 17 Integration & Competitions",
-      subtitle: "Formula Student EV Build (TUFF 17) + National Races",
-      badge: "TROPHY MILESTONE",
-      badgeClass: "highlighter-yellow",
-      desc: "Part of the electric design and assembly team for TUFF 17, our inaugural EV build. Handled the low-voltage interfacing and safety circuit integration, laying the foundation for the team's transition to electric racing.",
-      doodle: (
-        <svg width="45" height="45" viewBox="0 0 40 40" fill="none" className="inline-block align-middle ml-2">
-          {/* Stick figure holding trophy */}
-          <circle cx="20" cy="14" r="5" stroke="black" strokeWidth="1.5" fill="white" />
-          <line x1="20" y1="19" x2="20" y2="30" stroke="black" strokeWidth="1.5" />
-          <path d="M20 22 L11 16 L8 18" stroke="black" strokeWidth="1.5" strokeLinecap="round" />
-          <path d="M20 22 L29 16 L32 18" stroke="black" strokeWidth="1.5" strokeLinecap="round" />
-          <path d="M20 30 L15 39" stroke="black" strokeWidth="1.5" />
-          <path d="M20 30 L25 39" stroke="black" strokeWidth="1.5" />
-          {/* Trophy Cup */}
-          <path d="M6 10 H13 V14 C13 16 11 18 9.5 18 C8 18 6 16 6 14 Z" fill="white" stroke="black" strokeWidth="1.2" />
-          <line x1="9.5" y1="18" x2="9.5" y2="21" stroke="black" strokeWidth="1.2" />
-          <line x1="7" y1="21" x2="12" y2="21" stroke="black" strokeWidth="1.2" />
-        </svg>
-      )
-    },
-    {
-      year: "2024",
-      title: "Embedded DAQ & Pi-EV Win",
-      subtitle: "STM32 CAN Bus Systems + Competition",
-      badge: "COMPETITION WINNER",
-      badgeClass: "highlighter-green",
-      desc: "Secured first place in the Procurement Event at Pi-EV. Designed custom low-voltage data logging boards and verified CAN telemetry links under simulated test conditions.",
-      doodle: (
-        <svg width="45" height="45" viewBox="0 0 40 40" fill="none" className="inline-block align-middle ml-2">
-          {/* Stick figure at computer */}
-          <circle cx="15" cy="15" r="4.5" stroke="black" strokeWidth="1.5" fill="white" />
-          <line x1="15" y1="19.5" x2="15" y2="30" stroke="black" strokeWidth="1.5" />
-          <path d="M15 22 L24 25 L28 29" stroke="black" strokeWidth="1.5" strokeLinecap="round" />
-          <path d="M15 30 L10 39" stroke="black" strokeWidth="1.5" />
-          <path d="M15 30 L18 39" stroke="black" strokeWidth="1.5" />
-          {/* Monitor desk */}
-          <rect x="25" y="20" width="12" height="9" rx="0.5" fill="white" stroke="black" strokeWidth="1" />
-          <line x1="31" y1="29" x2="31" y2="33" stroke="black" strokeWidth="1.2" />
-          <line x1="28" y1="33" x2="34" y2="33" stroke="black" strokeWidth="1.2" />
-        </svg>
-      )
-    },
-    {
-      year: "2024",
-      title: "Eagle CAD & PCB Design (EDP-II)",
-      subtitle: "Thapar Academic Project",
-      badge: "ACADEMIC PROTO",
-      badgeClass: "highlighter-pink",
-      desc: "Designed and routed Printed Circuit Boards (PCBs) for PWM transmitters and IR sensor modules using Eagle CAD for the Engineering Design Project II (EDP-II). Discovered that manual trace routing is a test of human sanity, and that cold soldering smells terrible.",
-      doodle: (
-        <svg width="45" height="45" viewBox="0 0 40 40" fill="none" className="inline-block align-middle ml-2">
-          {/* Stick figure holding soldering iron */}
-          <circle cx="20" cy="12" r="5" stroke="black" strokeWidth="1.5" fill="white" />
-          <line x1="20" y1="17" x2="20" y2="28" stroke="black" strokeWidth="1.5" />
-          <path d="M20 20 L12 25 L8 24" stroke="black" strokeWidth="1.5" strokeLinecap="round" />
-          <path d="M20 20 L28 22" stroke="black" strokeWidth="1.5" strokeLinecap="round" />
-          <line x1="8" y1="24" x2="4" y2="22" stroke="black" strokeWidth="1.5" />
-          <path d="M20 28 L15 38" stroke="black" strokeWidth="1.5" />
-          <path d="M20 28 L25 38" stroke="black" strokeWidth="1.5" />
-        </svg>
-      )
-    },
-    {
-      year: "2023",
-      title: "Dual Degrees & Formula Student",
-      subtitle: "Academic Foundation Era",
-      badge: "FOUNDATION",
-      badgeClass: "highlighter-blue",
-      desc: "I decided it would be a great idea to sign up for TWO degrees at the same time: Computer Engineering at Thapar and Data Science & AI at IIT Guwahati. I had zero free time, so I joined the Formula Student team to make sure I had negative free time. Good choice, Mannat.",
-      doodle: (
-        <svg width="45" height="45" viewBox="0 0 40 40" fill="none" className="inline-block align-middle ml-2">
-          {/* Stick figure walking */}
-          <circle cx="20" cy="12" r="5" stroke="black" strokeWidth="1.5" fill="white" />
-          <line x1="20" y1="17" x2="20" y2="28" stroke="black" strokeWidth="1.5" />
-          <path d="M20 20 L14 26" stroke="black" strokeWidth="1.5" strokeLinecap="round" />
-          <path d="M20 20 L26 23 L28 20" stroke="black" strokeWidth="1.5" strokeLinecap="round" />
-          <path d="M20 28 L15 38" stroke="black" strokeWidth="1.5" />
-          <path d="M20 28 L25 35 L28 38" stroke="black" strokeWidth="1.5" />
-        </svg>
-      )
-    },
-    {
-      year: "2019",
-      title: "First Code & Embedded Experiments",
-      subtitle: "Bedroom Microcontroller Lab",
-      badge: "ORIGIN",
-      badgeClass: "highlighter-pink",
-      desc: "I wrote my first line of C code. It printed 'Hello World'. It took me three hours to realize I forgot a semicolon. I should have quit right there, but here we are.",
-      doodle: (
-        <svg width="45" height="45" viewBox="0 0 40 40" fill="none" className="inline-block align-middle ml-2">
-          {/* Stick figure coding */}
-          <circle cx="16" cy="15" r="4.5" stroke="black" strokeWidth="1.5" fill="white" />
-          <line x1="16" y1="19.5" x2="16" y2="30" stroke="black" strokeWidth="1.5" />
-          <path d="M16 22 L24 24 L28 27" stroke="black" strokeWidth="1.5" strokeLinecap="round" />
-          <path d="M16 30 L11 39" stroke="black" strokeWidth="1.5" />
-          <path d="M16 30 L19 39" stroke="black" strokeWidth="1.5" />
-          {/* Tiny keyboard */}
-          <rect x="23" y="27" width="10" height="3" fill="white" stroke="black" strokeWidth="1" />
-        </svg>
-      )
-    },
-  ];
+interface Milestone {
+  year: string;
+  title: string;
+  subtitle: string;
+  badge: string;
+  colorClass: string;
+  desc: string;
+  icon: React.ReactNode;
+}
 
-  const skillCategories = [
-    { title: "PROGRAMMING", items: ["Python", "C / C++", "JavaScript / TypeScript", "SQL", "Bash"] },
-    { title: "MACHINE LEARNING", items: ["PyTorch", "TensorFlow", "scikit-learn", "XGBoost", "Deep Q-Networks", "Reinforcement Learning"] },
-    { title: "EMBEDDED HARDWARE", items: ["STM32", "ESP32", "CAN Bus Telemetry", "Firmware Design", "Low-Voltage Systems"] },
-    { title: "TOOLS & WEB TECH", items: ["Git / GitHub", "Linux", "Next.js", "React", "TailwindCSS", "NumPy / Pandas"] },
-  ];
+const milestones: Milestone[] = [
+  {
+    year: "2026",
+    title: "Team Manager & Software Architect",
+    subtitle: "Formula Student EV Program - Team Fateh",
+    badge: "LEADERSHIP SCALE",
+    colorClass: "bg-[#e2f0cb]",
+    desc: "Promoted to Team Manager of Team Fateh. Managed engineering timelines and budgets across electronics, mechanical, and battery subsystems, culminating in Design Winners and Overall P3 in the EV class at SUPRA SAE. Architected the team's Next.js telemetry blogging platform.",
+    icon: <Award className="w-3.5 h-3.5 text-[#2d2621]" />
+  },
+  {
+    year: "2025",
+    title: "TUFF 17 Vehicle Integration",
+    subtitle: "Inaugural EV Accumulator & LV Wiring",
+    badge: "VEHICLE INTEGRATION",
+    colorClass: "bg-[#daeaf6]",
+    desc: "Coordinated the assembly and test integration of our first-generation EV racecar. Implemented low-voltage wiring routing and custom safety shutdown loops, resolving signal noise issues under full battery pack discharge.",
+    icon: <Cpu className="w-3.5 h-3.5 text-[#2d2621]" />
+  },
+  {
+    year: "2024",
+    title: "CAN Telemetry & Pi-EV Win",
+    subtitle: "STM32 Low-Voltage logging board design",
+    badge: "COMPETITION WIN",
+    colorClass: "bg-[#e2f0cb]",
+    desc: "Secured first place in the Procurement Event at Pi-EV. Designed custom STM32 CAN logging boards and verified sensor communications loops under simulated telemetry conditions.",
+    icon: <Star className="w-3.5 h-3.5 text-[#2d2621]" />
+  },
+  {
+    year: "2024",
+    title: "Eagle CAD PCB Routing (EDP-II)",
+    subtitle: "Custom PWM and Infrared sensor circuitry",
+    badge: "ACADEMIC PROTO",
+    colorClass: "bg-[#ebd9cc]",
+    desc: "Routed multi-layered Printed Circuit Boards for high-frequency signal transmitters. Managed trace integrity, safety clearance rules, and optimized board sizes to withstand vibration on physical vehicle chassis.",
+    icon: <Cpu className="w-3.5 h-3.5 text-[#2d2621]" />
+  },
+  {
+    year: "2023",
+    title: "Dual Degree Foundations",
+    subtitle: "TIET Computer Engineering & IIT Guwahati DS & AI",
+    badge: "CONCURRENT BOOT",
+    colorClass: "bg-[#e2f0cb]",
+    desc: "Enrolled in concurrent engineering programs: B.E. Computer Engineering at Thapar and B.Sc. Data Science & Artificial Intelligence at IIT Guwahati. Joined Team Fateh to integrate academic ML studies with real-world cyber-physical hardware.",
+    icon: <BookOpen className="w-3.5 h-3.5 text-[#2d2621]" />
+  },
+  {
+    year: "2019",
+    title: "Initial Firmware & Microcontroller Lab",
+    subtitle: "First firmware compilation and C coding",
+    badge: "SOURCE BOOTSTRAP",
+    colorClass: "bg-[#ebd9cc]",
+    desc: "Wrote the initial C code loops to toggle GPIO pins on 8-bit microcontrollers. Spent hours resolving missing semicolons and debugger driver issues, establishing interest in embedded systems.",
+    icon: <Compass className="w-3.5 h-3.5 text-[#2d2621]" />
+  },
+];
+
+interface TimelinePageProps {
+  selectedIdx: number;
+  onSelectIdx: (idx: number) => void;
+}
+
+export function TidepoolTimelinePage({ selectedIdx, onSelectIdx }: TimelinePageProps) {
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   return (
-    <div className="site-shell max-w-4xl mx-auto py-6 px-4">
-      {/* Red margin line visual assist */}
-      <div className="absolute left-[58px] top-0 bottom-0 w-0.5 bg-red-400 pointer-events-none" />
+    <div className="notebook-page-content lined select-none bg-[#daeaf6]/20">
+      <div className="margin-line" />
+      <div className="margin-padding space-y-4">
+        
+        {/* Header tag */}
+        <div className="flex items-center justify-between border-b-2 border-stone-200/50 pb-2 mb-2 mt-1">
+          <span className="font-serif font-black text-sm text-[#2d2621] uppercase">
+            Tidepool Stepping Path
+          </span>
+          <span className="font-mono text-[9px] text-[#94b0a0] font-bold">[ENTRY 07]</span>
+        </div>
 
-      <div className="space-y-6">
-        {/* Header */}
-        <section className="mb-6 border-b-2 border-black pb-4 mt-4 flex items-center justify-between">
-          <div>
-            <h1 className="font-hud text-2xl font-extrabold text-black uppercase tracking-tight">
-              MY ELAPSED TIMELINE
-            </h1>
-            <span className="text-zinc-500 font-hud text-[11px] block mt-1 uppercase">
-              SYS-05 // Chronology Log &amp; Skill Matrix
-            </span>
-          </div>
-        </section>
-
-        {/* MET Timeline */}
-        <section className="notebook-panel p-5 bg-[#ffffff] relative">
-          {/* Tape decoration */}
-          <div className="absolute -top-3 left-10 w-16 h-4 bg-yellow-100/50 border border-dashed border-black/10 rotate-[-1deg]" />
-
-          <div className="border-b border-black/10 pb-3 flex justify-between items-center mb-6 mt-1">
-            <div>
-              <h2 className="font-hud text-md font-bold text-black uppercase flex items-center gap-1.5">
-                <Calendar className="w-4 h-4 text-black" /> Career Milestones &amp; Achievements
-              </h2>
-            </div>
-            <span className="font-hud text-[9px] bg-yellow-100 border-2 border-black rounded px-2.5 py-0.5 uppercase font-bold tracking-wider">
-              6 log nodes
-            </span>
+        {/* Stepping pool illustration */}
+        <div className="relative py-14 bg-white/70 border-2 border-[#2d2621] rounded-2xl min-h-[220px] px-8 flex justify-center items-center shadow-[inset_1px_1px_6px_rgba(0,0,0,0.05)] select-none overflow-hidden">
+          
+          {/* Water ripples */}
+          <div className="absolute inset-0 pointer-events-none opacity-20">
+            <svg className="w-full h-full">
+              <ellipse cx="50%" cy="50%" rx="130" ry="60" fill="none" stroke="#2d2621" strokeWidth="1" strokeDasharray="3 5" className="wave-ripple-1" />
+              <ellipse cx="48%" cy="52%" rx="90" ry="40" fill="none" stroke="#2d2621" strokeWidth="1" strokeDasharray="2 3" className="wave-ripple-2" />
+            </svg>
           </div>
 
-          {/* Timeline list */}
-          <div className="space-y-6 relative border-l-2 border-black border-dashed ml-3 pl-6">
-            {milestones.map((m, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, x: -8 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: idx * 0.05 }}
-                viewport={{ once: true }}
-                onMouseEnter={playHoverSound}
-                className="relative space-y-2 group"
-              >
-                {/* Timeline node dot */}
-                <div className="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-black border-2 border-white group-hover:scale-125 transition-transform" />
+          <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-60">
+            <path d="M 30 130 C 100 80 180 140 280 110 T 380 120" fill="none" stroke="#2d2621" strokeWidth="1.5" strokeDasharray="3 3" />
+          </svg>
 
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                  <div className="flex items-center gap-2">
-                    <span className="font-hud font-extrabold text-black text-[16px]">{m.year}</span>
-                    <span className="font-mono text-[10px] text-zinc-400 font-bold">[MET T+{idx * 365}D]</span>
-                  </div>
-                  <span className={`font-hud text-[9px] uppercase font-bold px-2 py-0.5 rounded border border-black/10 ${m.badgeClass}`}>
-                    {m.badge}
-                  </span>
-                </div>
-
-                <div className="p-4 bg-zinc-50 border-2 border-black border-dashed rounded relative">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-hud text-sm font-bold text-black uppercase leading-snug">
-                        {m.title}
-                      </h3>
-                      <p className="font-hud text-[10px] text-zinc-500 mt-0.5">{m.subtitle}</p>
-                    </div>
-                    {m.doodle}
-                  </div>
-                  <p className="text-[14px] text-zinc-700 leading-relaxed pt-2 border-t border-black/5 mt-2">
-                    {m.desc}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* Skills Matrix */}
-        <section className="notebook-panel p-5 bg-[#ffffff] relative">
-          <div className="absolute -top-3 right-8 w-16 h-4.5 bg-yellow-100/55 border border-dashed border-black/15 rotate-[2deg]" />
-
-          <div className="border-b border-black/10 pb-3 flex justify-between items-center mb-4">
-            <h2 className="font-hud text-md font-bold text-black uppercase flex items-center gap-1.5">
-              <Cpu className="w-4 h-4 text-black" /> Skills &amp; Toolbox Inventory
-            </h2>
-            <span className="font-mono text-[10px] text-zinc-400 font-bold uppercase">Node registry</span>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {skillCategories.map((cat, idx) => {
+          {/* Stepping Stones */}
+          <div className="absolute inset-0 flex justify-around items-center px-4">
+            {milestones.map((m, idx) => {
+              const isSelected = selectedIdx === idx;
+              const isHovered = hoveredIdx === idx;
+              
+              const coords = [
+                { x: "12%", y: "45%" },
+                { x: "28%", y: "25%" },
+                { x: "42%", y: "65%" },
+                { x: "58%", y: "30%" },
+                { x: "72%", y: "60%" },
+                { x: "88%", y: "40%" }
+              ];
+              
               return (
-                <div 
-                  key={idx} 
-                  className="p-4 bg-zinc-50 border-2 border-black rounded shadow-[2px_2px_0px_rgba(0,0,0,0.08)] relative"
+                <div
+                  key={idx}
+                  onClick={() => {
+                    onSelectIdx(idx);
+                    playClickSound();
+                    playPageFlipSound();
+                  }}
+                  onMouseEnter={() => {
+                    playHoverSound();
+                    setHoveredIdx(idx);
+                  }}
+                  onMouseLeave={() => setHoveredIdx(null)}
+                  style={{ left: coords[idx].x, top: coords[idx].y }}
+                  className="absolute cursor-pointer flex flex-col items-center group transform translate-x-[-50%] translate-y-[-50%]"
                 >
-                  {/* Tape decorator on the skill categories */}
-                  <div className="absolute -top-2 left-4 w-10 h-3 bg-yellow-100/30 border border-dashed border-black/5 rotate-[-3deg]" />
+                  <div className={`absolute -inset-2.5 rounded-full transition-all duration-300 pointer-events-none ${
+                    isSelected || isHovered 
+                      ? "bg-[#94b0a0]/35 blur-sm" 
+                      : "bg-transparent"
+                  }`} />
 
-                  <div className={`font-hud text-xs font-bold uppercase border-b-2 border-black pb-1.5 mb-2.5 flex items-center justify-between`}>
-                    <span>{cat.title}</span>
-                    <Star className="w-3 h-3 text-black fill-black" />
-                  </div>
+                  <motion.svg
+                    width="36"
+                    height="26"
+                    viewBox="0 0 40 30"
+                    className="overflow-visible"
+                    animate={isSelected ? { scale: 1.1, y: -3 } : isHovered ? { y: -1 } : { y: 0 }}
+                  >
+                    <ellipse cx="20" cy="15" rx="16" ry="10" fill={isSelected ? "#ebd9cc" : "#fffdfa"} stroke="#2d2621" strokeWidth="1.8" />
+                    <text
+                      x="20"
+                      y="18"
+                      fontFamily="serif"
+                      fontSize="9"
+                      fontWeight="black"
+                      fill="#2d2621"
+                      textAnchor="middle"
+                    >
+                      {m.year.slice(2)}
+                    </text>
+                  </motion.svg>
                   
-                  <div className="flex flex-wrap gap-2">
-                    {cat.items.map((item, i) => (
-                      <span
-                        key={i}
-                        className="font-hud text-xs bg-white border-2 border-black rounded px-2.5 py-0.5 shadow-[1.5px_2px_0px_rgba(0,0,0,1)] uppercase font-bold"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
+                  {isHovered && (
+                    <div className="absolute top-[-24px] bg-white border border-[#2d2621] rounded-lg px-1.5 py-0.2 shadow-[1px_1px_0px_#2d2621] text-[8px] font-mono font-bold text-[#2d2621] whitespace-nowrap z-20">
+                      {m.year}
+                    </div>
+                  )}
                 </div>
               );
             })}
           </div>
-        </section>
+
+        </div>
+
       </div>
     </div>
   );
+}
+
+interface ShelfPageProps {
+  selectedIdx: number;
+}
+
+export function AchievementsShelfPage({ selectedIdx }: ShelfPageProps) {
+  const activeMilestone = milestones[selectedIdx];
+
+  const honors = [
+    "SUPRA SAE 2025 — Overall P3, Statics P2 (EV Category)",
+    "Formula Bharat 2025 — Engineering Design Finalists",
+    "Pi-EV 2024 — Procurement Event Winners",
+    "Santander Open Academy — High Performance Leadership: Lessons from Formula 1",
+    "Poetry published in Carousels Anthology (2024)"
+  ];
+
+  return (
+    <div className="notebook-page-content lined select-none">
+      <div className="margin-line" />
+      <div className="margin-padding space-y-4">
+        
+        {/* Header tag */}
+        <div className="flex items-center justify-between border-b-2 border-stone-200/50 pb-2 mb-2 mt-1">
+          <span className="font-serif font-black text-sm text-[#2d2621] uppercase">
+            Milestone Details
+          </span>
+          <span className="font-mono text-[9px] text-[#94b0a0] font-bold">[ENTRY 08]</span>
+        </div>
+
+        {/* Milestone Detail card */}
+        <div className="p-3 bg-[#fcf8f2] border-2 border-[#2d2621]/30 rounded-xl relative shadow-[2px_2px_0px_rgba(45,38,33,0.1)] space-y-2">
+          <div className="flex justify-between items-center border-b border-[#2d2621]/15 pb-1">
+            <span className="font-serif font-extrabold text-xs text-[#2d2621]">
+              {activeMilestone.year} Entry: {activeMilestone.title}
+            </span>
+            <div className="p-1 bg-white border border-[#2d2621]/20 rounded-full">
+              {activeMilestone.icon}
+            </div>
+          </div>
+          <p className="text-[10px] text-stone-600 leading-relaxed font-sans font-medium">
+            {activeMilestone.desc}
+          </p>
+        </div>
+
+        {/* Achievements list */}
+        <div className="pt-2">
+          <span className="font-serif text-[10px] text-stone-400 block uppercase mb-1.5 tracking-wider font-bold">
+            HONORS &amp; ACHIEVEMENTS INDEX:
+          </span>
+          <div className="space-y-1.5 font-mono text-[9px] text-stone-600">
+            {honors.map((item, idx) => (
+              <div key={idx} className="flex items-start gap-1.5">
+                <Star className="w-2.5 h-2.5 text-[#d68c45] fill-[#ebd9cc] flex-shrink-0 mt-0.5" />
+                <span className="font-bold">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+export default function Timeline() {
+  return null;
 }
